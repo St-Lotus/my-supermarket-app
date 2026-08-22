@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="my" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS2 & St. Lotus Supermarket Network</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16'
+                        },
+                        brand: {
+                            green: '#1E6B43',
+                            accent: '#F97316'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Padauk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .product-card-border {
+            border: 1px solid #f1f5f9;
+        }
+        .product-card-border:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        .fade-slide {
+            transition: opacity 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] font-sans antialiased text-slate-800 min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <!-- Search Box in place of old branch selector -->
+            <div class="flex-1 max-w-md relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search products, groceries..." 
+                    class="w-full bg-slate-100 text-xs font-semibold text-slate-800 pl-9 pr-4 py-2 rounded-full outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition-all">
+            </div>
+
+            <!-- Navigation Menu Links -->
+            <nav class="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm font-semibold text-slate-600">
+                <a href="#home" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-bold transition-all shadow-sm">Home</a>
+                <a href="#categories" class="px-2.5 py-1.5 hover:text-emerald-700 transition-colors hidden sm:inline">Categories</a>
+                <a href="#locations" class="px-2.5 py-1.5 hover:text-emerald-700 transition-colors">Stores</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl w-full mx-auto px-4 lg:px-8 py-5 space-y-8 flex-1">
+
+        <!-- AUTOMATED HERO BANNER CAROUSEL (5 Images per store) -->
+        <section id="home" class="relative rounded-3xl bg-slate-900 text-white overflow-hidden shadow-xl min-h-[300px] sm:min-h-[380px] flex items-center group">
+            
+            <!-- Slides Container -->
+            <div id="carouselContainer" class="absolute inset-0 z-0">
+                <!-- Dynamic Slides injected via JS -->
+            </div>
+
+            <!-- Overlay Gradient for Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/60 to-transparent z-10 pointer-events-none"></div>
+
+            <!-- Hero Banner Text Overlay Content -->
+            <div class="relative z-20 p-6 sm:p-12 max-w-xl space-y-4">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-400/30">
+                    <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                    <span class="text-[11px] font-bold tracking-wide uppercase text-emerald-200" id="heroStoreTag">CIS2 & St. Lotus Supermarket Network</span>
+                </div>
+
+                <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-white" id="heroStoreTitle">
+                    CIS2 Supermarket
+                </h2>
+
+                <p class="text-xs sm:text-sm text-slate-200 font-medium max-w-md leading-relaxed" id="heroSlideDesc">
+                    Fresh groceries, highland vegetables, bakery items, organic produce & daily household essentials.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <a href="#categories" class="bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl shadow-md transition-all inline-flex items-center gap-2">
+                        <span>Explore Categories</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#locations" class="bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl backdrop-blur-md transition-all">
+                        Store Branches
+                    </a>
+                </div>
+            </div>
+
+            <!-- Carousel Indicators Dots -->
+            <div class="absolute bottom-4 right-6 z-20 flex items-center gap-2" id="carouselDots">
+                <!-- JS generated indicators -->
+            </div>
+
+            <!-- Slider Navigation Arrows -->
+            <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-slate-900/40 hover:bg-slate-900/80 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-slate-900/40 hover:bg-slate-900/80 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </section>
+
+        <!-- FEATURED CATEGORIES SECTION -->
+        <section id="categories" class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-800 tracking-tight">Featured Categories</h2>
+                    <p class="text-xs text-slate-500">Browse products across our complete store departments</p>
+                </div>
+                <button onclick="resetCategoryFilter()" id="resetCatBtn" class="hidden text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 hover:bg-emerald-100">
+                    Show All Categories
+                </button>
+            </div>
+
+            <!-- Categories Grid Display -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3" id="categoriesGrid">
+                <!-- JS dynamic category cards with Noodle Bar check for CIS2 -->
+            </div>
+        </section>
+
+        <!-- PRODUCT LISTINGS SECTION (NO PRICE & NO CART BUTTON) -->
+        <section id="products" class="space-y-6 pt-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-900" id="productSectionTitle">All Supermarket Items</h2>
+                    <p class="text-xs text-slate-500" id="productSectionSub">Quality guaranteed produce and goods at CIS2 & St. Lotus</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="itemCountTag" class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+                        Showing 0 items
+                    </span>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="productsGrid">
+                <!-- JS dynamic product cards -->
+            </div>
+        </section>
+
+        <!-- OUR STORE LOCATIONS (2 STORES & BRANCH SELECTOR) -->
+        <section id="locations" class="space-y-4 pt-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-800">Our Store Locations</h2>
+                    <p class="text-xs text-slate-500">Select a branch to filter products or visit us in Mandalay or Taunggyi</p>
+                </div>
+
+                <!-- Branch Selector Tool moved inside Stores Section -->
+                <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200/80 px-3.5 py-1.5 rounded-full shadow-inner w-fit">
+                    <i class="fa-solid fa-location-dot text-emerald-700 text-xs"></i>
+                    <span class="text-xs font-bold text-slate-600">Select Branch:</span>
+                    <select id="storeSelector" onchange="switchStore(this.value)" class="bg-transparent text-xs sm:text-sm font-extrabold text-emerald-800 outline-none cursor-pointer">
+                        <option value="all">All Stores (CIS2 & St. Lotus)</option>
+                        <option value="cis2">CIS2 Supermarket (Mandalay)</option>
+                        <option value="stlotus">St. Lotus Supermarket (Taunggyi)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Two Store Branch Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Store 1: CIS 2 Supermarket -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm space-y-3 relative hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm shrink-0">
+                                <i class="fa-solid fa-shop"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-sm text-slate-900">CIS 2 Supermarket</h3>
+                                <p class="text-[11px] text-emerald-700 font-bold">Mandalay Branch (Noodle Bar Available)</p>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2.5 py-1 rounded-full">Open Now</span>
+                    </div>
+
+                    <div class="space-y-1.5 text-xs text-slate-600">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
+                            <span>No. 413/3, 35th Street, Between 62nd & 63rd Streets, Mahar Myaing (2), Mahar Aung Myay Township, Mandalay</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-slate-400 shrink-0"></i>
+                            <span class="font-semibold text-slate-800">09 790 970 500</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-regular fa-clock text-slate-400 shrink-0"></i>
+                            <span>8:00 AM - 8:00 PM (Daily)</span>
+                        </p>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="switchStore('cis2')" class="text-xs font-bold text-emerald-700 hover:text-emerald-800">
+                            Select Mandalay Branch &rarr;
+                        </button>
+                        <button onclick="openMapModal('CIS 2 Supermarket', 'Mandalay')" class="text-xs text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>View Map</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store 2: St. Lotus Supermarket -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm space-y-3 relative hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-black text-sm shrink-0">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-sm text-slate-900">St. Lotus Supermarket</h3>
+                                <p class="text-[11px] text-amber-700 font-bold">Taunggyi Branch</p>
+                            </div>
+                        </div>
+                        <span class="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-bold px-2.5 py-1 rounded-full">Open Now</span>
+                    </div>
+
+                    <div class="space-y-1.5 text-xs text-slate-600">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
+                            <span>No. 197, Yae Htwet Oo Road, Kan Shae Quarter, Taunggyi, Shan State</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-slate-400 shrink-0"></i>
+                            <span class="font-semibold text-slate-800">09 651 755 994</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-regular fa-clock text-slate-400 shrink-0"></i>
+                            <span>8:00 AM - 8:00 PM (Daily)</span>
+                        </p>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="switchStore('stlotus')" class="text-xs font-bold text-amber-700 hover:text-amber-800">
+                            Select Taunggyi Branch &rarr;
+                        </button>
+                        <button onclick="openMapModal('St. Lotus Supermarket', 'Taunggyi')" class="text-xs text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>View Map</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-emerald-900 text-white mt-12 pt-10 pb-6 px-4 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-xs">
+            
+            <!-- Col 1: Brand & Desc -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-black">
+                        <i class="fa-solid fa-basket-shopping text-sm"></i>
+                    </div>
+                    <span class="text-base font-extrabold tracking-tight">CIS2 & St. Lotus</span>
+                </div>
+                <p class="text-emerald-200/80 leading-relaxed">
+                    Your trusted supermarket network in Mandalay and Taunggyi. Offering high-quality fresh produce, groceries, and daily home essentials.
+                </p>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <h3 class="font-extrabold text-sm text-white uppercase tracking-wider mb-3">Categories</h3>
+                <ul class="space-y-2 text-emerald-200/80">
+                    <li><a href="#categories" class="hover:text-white transition-colors">Grocery & Foods</a></li>
+                    <li><a href="#categories" class="hover:text-white transition-colors">Beverage & Drinks</a></li>
+                    <li><a href="#categories" class="hover:text-white transition-colors">Beauty & Care</a></li>
+                    <li><a href="#categories" class="hover:text-white transition-colors">Electronics & Home</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Branches -->
+            <div>
+                <h3 class="font-extrabold text-sm text-white uppercase tracking-wider mb-3">Our Branches</h3>
+                <ul class="space-y-2 text-emerald-200/80">
+                    <li><a href="#locations" class="hover:text-white transition-colors">CIS2 Mandalay Branch</a></li>
+                    <li><a href="#locations" class="hover:text-white transition-colors">CIS2 Noodle Bar</a></li>
+                    <li><a href="#locations" class="hover:text-white transition-colors">St. Lotus Taunggyi Branch</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Contact -->
+            <div class="space-y-2">
+                <h3 class="font-extrabold text-sm text-white uppercase tracking-wider mb-3">Contact Us</h3>
+                <p class="text-emerald-200/80 flex items-center gap-2">
+                    <i class="fa-regular fa-envelope text-emerald-400"></i>
+                    <span>info@cis2supermarket.com</span>
+                </p>
+                <p class="text-emerald-200/80 flex items-center gap-2">
+                    <i class="fa-solid fa-phone text-emerald-400"></i>
+                    <span class="font-bold text-white">09 790 970 500 / 09 651 755 994</span>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-4 border-t border-emerald-800/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-emerald-300/70 gap-2">
+            <p>CIS2 & St. Lotus Supermarket Network. All rights reserved.</p>
+            <p>Myanmar Grocery Network Catalog</p>
+        </div>
+    </footer>
+
+    <!-- MAP MODAL -->
+    <div id="mapModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl relative">
+            <button onclick="closeMapModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-map-location-dot text-lg"></i>
+                </div>
+                <div>
+                    <h3 id="modalStoreName" class="font-extrabold text-slate-900 text-base">Store Name</h3>
+                    <p id="modalStoreCity" class="text-xs text-slate-500">Location Map Preview</p>
+                </div>
+            </div>
+
+            <div class="w-full h-48 bg-slate-100 rounded-2xl flex flex-col items-center justify-center text-slate-400 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-3xl text-emerald-600 mb-2 animate-bounce"></i>
+                <p class="text-xs font-semibold text-slate-600">Interactive Map Directions</p>
+                <p class="text-[10px] text-slate-400">Opening Location Directions...</p>
+            </div>
+
+            <button onclick="closeMapModal()" class="w-full bg-slate-900 text-white font-bold text-xs py-2.5 rounded-xl">
+                Close Map Preview
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-bold pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        // BACKGROUND GOOGLE SHEETS CSV CONFIGURATION (SILENT BACKGROUND FETCH)
+        const BACKGROUND_GOOGLE_SHEETS_CSV_URL = ""; // Insert published CSV Google Sheet URL here if needed
+
+        // STORE AUTOMATED BANNER CAROUSEL IMAGES (5 images per store)
+        const bannerSlides = {
+            cis2: [
+                {
+                    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+                    title: "CIS2 Supermarket Mandalay",
+                    desc: "Fresh Vegetables, Grocery & Premium Produce Direct from Local Farms."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=1200&q=80",
+                    title: "CIS2 Noodle Bar Exclusive",
+                    desc: "Specialty Asian Noodle Station & Instant Noodle Varieties at Mandalay Branch!"
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80",
+                    title: "Bakery & Baking Essentials",
+                    desc: "Freshly Baked Breads, Cakes, Pastries & High-Quality Baking Ingredients."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=80",
+                    title: "Chilled & Fresh Dairy Products",
+                    desc: "Cold Drinks, Fresh Farm Milk, Butter, Cheese & Frozen Foods."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=1200&q=80",
+                    title: "Household & Personal Care",
+                    desc: "Complete Household Essentials, Cleaning Supplies & Baby Care Products."
+                }
+            ],
+            stlotus: [
+                {
+                    image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
+                    title: "St. Lotus Supermarket Taunggyi",
+                    desc: "Your Premier Grocery & Daily Shopping Destination in Shan State."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=80",
+                    title: "Fresh Shan Highland Produce",
+                    desc: "Organic Fruits, Fresh Vegetables & Highland Specialties Daily."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80",
+                    title: "Beauty & Personal Care",
+                    desc: "Top Skincare Brands, Mother & Baby Care Supplies & Pharmacy."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1200&q=80",
+                    title: "Confectionery, Pick & Snack",
+                    desc: "Imported Chocolates, Pickles, Crisps & Premium Refreshing Beverages."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80",
+                    title: "Kitchen, Dining & Home Appliances",
+                    desc: "Bakeware, Kitchen Essentials, Stationery & Electronic Appliances."
+                }
+            ],
+            all: [
+                {
+                    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+                    title: "CIS2 & St. Lotus Network",
+                    desc: "Mandalay & Taunggyi Branches - Quality Groceries Everywhere."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=1200&q=80",
+                    title: "CIS2 Noodle Bar Special",
+                    desc: "Visit Mandalay Branch for our signature Noodle Bar Experience!"
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
+                    title: "Fresh Farm Organic Grocery",
+                    desc: "Highland vegetables, imported fruits & daily farm fresh milk."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80",
+                    title: "Baking, Snacks & Confectionery",
+                    desc: "Complete baking supplies, chocolates, beverages & chilled foods."
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=1200&q=80",
+                    title: "Electronics & Home Essentials",
+                    desc: "Kitchenware, stationery, home appliances & personal care."
+                }
+            ]
+        };
+
+        // ALL 18+ CATEGORIES SPECIFIED BY USER
+        const baseCategories = [
+            { name: "Grocery", icon: "fa-basket-shopping", bg: "bg-emerald-50 text-emerald-800 border-emerald-200" },
+            { name: "Nutrition & Confectionery Food", icon: "fa-candy-cane", bg: "bg-pink-50 text-pink-800 border-pink-200" },
+            { name: "Baking Food", icon: "fa-wheat-awn", bg: "bg-amber-50 text-amber-800 border-amber-200" },
+            { name: "Beverage", icon: "fa-bottle-water", bg: "bg-blue-50 text-blue-800 border-blue-200" },
+            { name: "Beer , Wine , Liquor & Tobacco", icon: "fa-wine-glass", bg: "bg-purple-50 text-purple-800 border-purple-200" },
+            { name: "Chilled Food", icon: "fa-temperature-arrow-down", bg: "bg-cyan-50 text-cyan-800 border-cyan-200" },
+            { name: "Frozen Food", icon: "fa-snowflake", bg: "bg-sky-50 text-sky-800 border-sky-200" },
+            { name: "Pick & Snack", icon: "fa-cookie-bite", bg: "bg-orange-50 text-orange-800 border-orange-200" },
+            { name: "Beauty & Personal Care", icon: "fa-pump-soap", bg: "bg-rose-50 text-rose-800 border-rose-200" },
+            { name: "Baby & Mother Care", icon: "fa-baby", bg: "bg-teal-50 text-teal-800 border-teal-200" },
+            { name: "Stationery & Office Supplies", icon: "fa-pen-ruler", bg: "bg-indigo-50 text-indigo-800 border-indigo-200" },
+            { name: "Electronic & Home Appliances", icon: "fa-plug", bg: "bg-slate-100 text-slate-800 border-slate-200" },
+            { name: "Kitchen & Dining", icon: "fa-utensils", bg: "bg-amber-100 text-amber-900 border-amber-300" },
+            { name: "Household Essentials", icon: "fa-house-chimney", bg: "bg-green-50 text-green-800 border-green-200" },
+            { name: "Horeca Essentials", icon: "fa-hotel", bg: "bg-violet-50 text-violet-800 border-violet-200" },
+            { name: "Bakeware & Baking Essentials", icon: "fa-cake-candles", bg: "bg-yellow-50 text-yellow-800 border-yellow-200" },
+            { name: "Pharmacy", icon: "fa-prescription-bottle-medical", bg: "bg-red-50 text-red-800 border-red-200" },
+            { name: "New Product", icon: "fa-sparkles", bg: "bg-emerald-100 text-emerald-900 border-emerald-300" }
+        ];
+
+        // CIS2 Exclusive Noodle Bar Category
+        const noodleBarCategory = {
+            name: "Noodle Bar",
+            icon: "fa-bowl-food",
+            bg: "bg-red-600 text-white border-red-700 font-extrabold shadow-sm",
+            isExclusive: true
+        };
+
+        // DEFAULT PRODUCT SAMPLE DATA (No prices as requested)
+        let defaultProducts = [
+            // CIS2 Noodle Bar Exclusive Items
+            { id: 101, name: "Special Spicy Ramen Bowl", category: "Noodle Bar", store: "cis2", image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=300&q=80" },
+            { id: 102, name: "Mandalay Style Kyay Oh", category: "Noodle Bar", store: "cis2", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=300&q=80" },
+            { id: 103, name: "Seafood Udon Soup", category: "Noodle Bar", store: "cis2", image: "https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=300&q=80" },
+
+            // Grocery
+            { id: 1, name: "Premium Jasmine Rice 5kg", category: "Grocery", store: "cis2", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
+            { id: 2, name: "Organic Cooking Oil 1L", category: "Grocery", store: "stlotus", image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
+
+            // Nutrition & Confectionery
+            { id: 3, name: "Assorted Milk Chocolates", category: "Nutrition & Confectionery Food", store: "cis2", image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=300&q=80" },
+
+            // Beverage
+            { id: 4, name: "Fresh Orange Juice 100%", category: "Beverage", store: "stlotus", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=300&q=80" },
+
+            // Chilled Food
+            { id: 5, name: "Fresh Pasteurized Milk 1L", category: "Chilled Food", store: "cis2", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80" },
+
+            // Frozen Food
+            { id: 6, name: "Frozen Mixed Berries", category: "Frozen Food", store: "stlotus", image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=300&q=80" },
+
+            // Beauty & Personal Care
+            { id: 7, name: "Organic Botanical Body Wash", category: "Beauty & Personal Care", store: "stlotus", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=300&q=80" },
+
+            // Household Essentials
+            { id: 8, name: "Eco Surface Cleaner Spray", category: "Household Essentials", store: "cis2", image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=300&q=80" },
+
+            // New Product
+            { id: 9, name: "Highland Honey Tea Box", category: "New Product", store: "stlotus", image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" }
+        ];
+
+        let productsList = [...defaultProducts];
+        let activeStore = 'all'; // 'all', 'cis2', 'stlotus'
+        let activeCategoryFilter = null;
+        let searchQuery = '';
+        let currentSlideIndex = 0;
+        let slideTimer = null;
+
+        function handleSearch(val) {
+            searchQuery = val.trim().toLowerCase();
+            renderProducts();
+            if(searchQuery.length > 0) {
+                const productsSec = document.getElementById('products');
+                if(productsSec) {
+                    productsSec.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        function filterCategory(catName) {
+            if(activeCategoryFilter === catName) {
+                activeCategoryFilter = null;
+            } else {
+                activeCategoryFilter = catName;
+            }
+            renderCategories();
+            renderProducts();
+            const productsSec = document.getElementById('products');
+            if(productsSec) {
+                productsSec.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function resetCategoryFilter() {
+            activeCategoryFilter = null;
+            renderCategories();
+            renderProducts();
+        }
+
+        function renderCarousel() {
+            const container = document.getElementById('carouselContainer');
+            const dots = document.getElementById('carouselDots');
+            const slides = bannerSlides[activeStore] || bannerSlides.all;
+
+            container.innerHTML = '';
+            dots.innerHTML = '';
+
+            slides.forEach((slide, idx) => {
+                // Slide element
+                const slideEl = document.createElement('div');
+                slideEl.className = `absolute inset-0 fade-slide ${idx === currentSlideIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
+                slideEl.innerHTML = `<img src="${slide.image}" class="w-full h-full object-cover">`;
+                container.appendChild(slideEl);
+
+                // Indicator dot
+                const dot = document.createElement('button');
+                dot.onclick = () => goToSlide(idx);
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all ${idx === currentSlideIndex ? 'bg-orange-500 w-7' : 'bg-white/50 hover:bg-white'}`;
+                dots.appendChild(dot);
+            });
+
+            // Update Text Title & Description based on current slide
+            const activeSlideData = slides[currentSlideIndex];
+            if(activeSlideData) {
+                document.getElementById('heroStoreTitle').innerText = activeSlideData.title;
+                document.getElementById('heroSlideDesc').innerText = activeSlideData.desc;
+            }
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideTimer = setInterval(() => {
+                nextSlide();
+            }, 3500); // 3.5 seconds auto rotation
+        }
+
+        function stopAutoSlide() {
+            if(slideTimer) clearInterval(slideTimer);
+        }
+
+        function nextSlide() {
+            const slides = bannerSlides[activeStore] || bannerSlides.all;
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            renderCarousel();
+        }
+
+        function prevSlide() {
+            const slides = bannerSlides[activeStore] || bannerSlides.all;
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            renderCarousel();
+        }
+
+        function goToSlide(idx) {
+            currentSlideIndex = idx;
+            renderCarousel();
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+
+            // Determine if Noodle Bar should be included (Included if 'cis2' or 'all')
+            let currentCategories = [...baseCategories];
+            if(activeStore === 'cis2' || activeStore === 'all') {
+                currentCategories.unshift(noodleBarCategory);
+            }
+
+            currentCategories.forEach(cat => {
+                const card = document.createElement('div');
+                const isSelected = activeCategoryFilter === cat.name;
+                
+                card.onclick = () => filterCategory(cat.name);
+                card.className = `cursor-pointer p-3.5 rounded-2xl border transition-all flex flex-col items-center justify-center text-center group relative ${cat.bg} ${isSelected ? 'ring-2 ring-emerald-600 scale-[1.02] shadow-md' : 'hover:scale-105'}`;
+                
+                card.innerHTML = `
+                    ${cat.isExclusive ? '<span class="absolute -top-2 bg-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase shadow">CIS2 Only</span>' : ''}
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-2 text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-solid ${cat.icon}"></i>
+                    </div>
+                    <h3 class="text-xs font-bold leading-snug line-clamp-2">${cat.name}</h3>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('resetCatBtn').classList.toggle('hidden', !activeCategoryFilter);
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const title = document.getElementById('productSectionTitle');
+            const sub = document.getElementById('productSectionSub');
+            const countTag = document.getElementById('itemCountTag');
+
+            grid.innerHTML = '';
+
+            let filtered = productsList.filter(p => activeStore === 'all' || p.store === activeStore || p.store === 'both');
+
+            if(activeCategoryFilter) {
+                filtered = filtered.filter(p => p.category === activeCategoryFilter);
+            }
+
+            if(searchQuery) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery));
+            }
+
+            if(searchQuery) {
+                title.innerText = `Search results for "${searchQuery}"`;
+                sub.innerText = `Showing matching items across store inventory`;
+            } else if(activeCategoryFilter) {
+                title.innerText = `${activeCategoryFilter}`;
+                sub.innerText = `Displaying items under ${activeCategoryFilter}`;
+            } else {
+                title.innerText = `All Supermarket Items`;
+                sub.innerText = `Quality guaranteed produce and goods at CIS2 & St. Lotus`;
+            }
+
+            countTag.innerText = `Showing ${filtered.length} items`;
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400 bg-white rounded-3xl border border-slate-100">
+                        <i class="fa-solid fa-box-open text-4xl mb-2 text-slate-300"></i>
+                        <p class="text-xs font-semibold">No items found.</p>
+                        <p class="text-[10px] text-slate-400 mt-1">Try adjusting your search query or branch filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl p-4 product-card-border transition-all flex flex-col justify-between group";
+                
+                const storeBadge = prod.store === 'cis2' 
+                    ? '<span class="bg-emerald-100 text-emerald-800 text-[9px] font-extrabold px-2 py-0.5 rounded-full">CIS2 Mandalay</span>'
+                    : prod.store === 'stlotus'
+                    ? '<span class="bg-amber-100 text-amber-800 text-[9px] font-extrabold px-2 py-0.5 rounded-full">St. Lotus Taunggyi</span>'
+                    : '<span class="bg-slate-100 text-slate-700 text-[9px] font-extrabold px-2 py-0.5 rounded-full">Both Stores</span>';
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Product Image -->
+                        <div class="w-full aspect-square rounded-xl overflow-hidden bg-slate-50 mb-3 flex items-center justify-center relative">
+                            <img src="${prod.image}" alt="${prod.name}" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+
+                        <!-- Category Tag -->
+                        <div class="flex items-center justify-between mb-1 gap-1">
+                            <span class="text-[10px] font-extrabold uppercase text-emerald-700 truncate">${prod.category}</span>
+                            ${storeBadge}
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 mt-1">${prod.name}</h3>
+                    </div>
+
+                    <div class="pt-3 mt-3 border-t border-slate-50 flex items-center justify-between text-[11px] text-slate-400 font-semibold">
+                        <span>Available in Store</span>
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function switchStore(store) {
+            activeStore = store;
+            currentSlideIndex = 0;
+            
+            // Sync store selector dropdown if changed from elsewhere
+            const selector = document.getElementById('storeSelector');
+            if(selector) selector.value = store;
+
+            const heroTag = document.getElementById('heroStoreTag');
+            if(store === 'cis2') {
+                heroTag.innerText = "CIS2 Mandalay Branch Direct";
+            } else if(store === 'stlotus') {
+                heroTag.innerText = "St. Lotus Taunggyi Branch Direct";
+            } else {
+                heroTag.innerText = "CIS2 & St. Lotus Supermarket Network";
+            }
+
+            renderCarousel();
+            renderCategories();
+            renderProducts();
+            showToast(`Switched view to ${store.toUpperCase()} Store`);
+        }
+
+        // Silent Background CSV Database Fetcher
+        function loadBackgroundDatabase() {
+            if(!BACKGROUND_GOOGLE_SHEETS_CSV_URL) return;
+
+            fetch(BACKGROUND_GOOGLE_SHEETS_CSV_URL)
+                .then(res => res.text())
+                .then(text => {
+                    const lines = text.split('\n');
+                    if(lines.length <= 1) return;
+
+                    const parsed = [];
+                    for(let i = 1; i < lines.length; i++) {
+                        const cols = lines[i].split(',');
+                        if(cols.length >= 4) {
+                            parsed.push({
+                                id: cols[0]?.trim() || i,
+                                name: cols[1]?.trim() || "Item",
+                                category: cols[2]?.trim() || "Grocery",
+                                store: cols[3]?.trim().toLowerCase() || "cis2",
+                                image: cols[4]?.trim() || "https://images.unsplash.com/photo-1542838132-92c53300491e"
+                            });
+                        }
+                    }
+
+                    if(parsed.length > 0) {
+                        productsList = parsed;
+                        renderProducts();
+                    }
+                })
+                .catch(err => {
+                    console.log("Background DB sync using default fallback items.");
+                });
+        }
+
+        function openMapModal(storeName, city) {
+            document.getElementById('modalStoreName').innerText = storeName;
+            document.getElementById('modalStoreCity').innerText = `${city} Location & Directions`;
+            const modal = document.getElementById('mapModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeMapModal() {
+            const modal = document.getElementById('mapModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Initialize App
+        window.onload = function() {
+            renderCarousel();
+            startAutoSlide();
+            renderCategories();
+            renderProducts();
+            loadBackgroundDatabase();
+        };
+    </script>
+</body>
+</html>
