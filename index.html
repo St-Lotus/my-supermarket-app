@@ -285,12 +285,12 @@
     <!-- Script Logic -->
     <script>
         const allCategories = [
-            { name: "Grocery", icon: "fa-basket-shopping" },
-            { name: "Nutrition & Confectionery", icon: "fa-cookie-bite" },
-            { name: "Beverage", icon: "fa-bottle-water" },
-            { name: "Chilled Food", icon: "fa-snowflake" },
-            { name: "Frozen Food", icon: "fa-ice-cream" },
-            { name: "Household Essentials", icon: "fa-house" }
+            { name: "Grocery", image: "https://cdn-icons-png.flaticon.com/512/3081/3081995.png" },
+            { name: "Nutrition & Confectionery", image: "https://cdn-icons-png.flaticon.com/512/2553/2553691.png" },
+            { name: "Beverage", image: "https://cdn-icons-png.flaticon.com/512/2405/2405479.png" },
+            { name: "Chilled Food", image: "https://cdn-icons-png.flaticon.com/512/2234/2234836.png" },
+            { name: "Frozen Food", image: "https://cdn-icons-png.flaticon.com/512/938/938090.png" },
+            { name: "Household Essentials", image: "https://cdn-icons-png.flaticon.com/512/2553/2553642.png" }
         ];
 
         let products = [
@@ -366,7 +366,14 @@
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition ${activeCategory === cat.name ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`;
                 btn.onclick = () => filterByCategory(cat.name);
-                btn.innerHTML = `<span class="flex items-center gap-2"><i class="fa-solid ${cat.icon} text-sm w-4"></i> ${cat.name}</span>`;
+        
+                // <i> tag နေရာတွင် <img> tag ပြောင်းထားပါသည်
+                btn.innerHTML = `
+                    <span class="flex items-center gap-2">
+                        <img src="${cat.image}" alt="${cat.name}" class="w-4 h-4 object-contain"> 
+                        ${cat.name}
+                    </span>`;
+            
                 container.appendChild(btn);
             });
         }
