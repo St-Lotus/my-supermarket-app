@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PapaParse CDN for parsing Google Sheets CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -111,7 +113,7 @@
 
     <main class="max-w-7xl mx-auto px-4 py-6 space-y-10">
 
-        <!-- Banner Auto Carousel (Always Active) -->
+        <!-- Banner Auto Carousel -->
         <div class="relative rounded-2xl overflow-hidden shadow-sm group">
             <div id="bannerContainer" class="relative min-h-[300px] sm:min-h-[360px] flex items-center bg-gray-900 transition-all duration-700 bg-cover bg-center">
                 <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent"></div>
@@ -161,16 +163,16 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition space-y-3 flex flex-col justify-between p-3">
                     <div class="relative rounded-xl overflow-hidden h-44">
-                        <img src="https://ik.imagekit.io/stlotus/Banner%20Images/cis004.jpg?updatedAt=1787568412769" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
                         <span class="absolute top-2.5 left-2.5 bg-emerald-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full">CIS2</span>
                         <span class="absolute top-2.5 right-2.5 bg-red-500 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full">20% OFF</span>
                     </div>
                     <div class="px-1 space-y-1.5">
-                        <h3 class="font-bold text-gray-900 text-base">Hot Drink Fair</h3>
+                        <h3 class="font-bold text-gray-900 text-base">Weekend Hot Deals</h3>
                         <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">Special discounts every weekend on fresh produce, dairy, and household items!</p>
                     </div>
                     <div class="px-1 pt-2 flex items-center justify-between text-xs border-t border-gray-50">
-                        <span class="text-gray-400 font-medium">2026-07-24 - 2026-08-27</span>
+                        <span class="text-gray-400 font-medium">2026-06-20 - 2026-06-30</span>
                         <a href="#" class="text-emerald-700 font-bold hover:underline flex items-center gap-1">Shop Now <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
                     </div>
                 </div>
@@ -211,17 +213,17 @@
 
     </main>
 
-    <!-- FOOTER SECTION WITH GOOGLE MAP LINKS -->
+    <!-- FOOTER SECTION WITH DIRECT GOOGLE MAP LINKS -->
     <footer class="bg-black text-gray-300 pt-12 pb-10 border-t border-gray-900 mt-16">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <!-- Column 1: Our Address (Google Maps Added) -->
+                <!-- Column 1: Our Address (Direct Google Maps Location Links) -->
                 <div class="space-y-4">
                     <h3 class="font-bold text-white text-base">Our Address</h3>
                     <div class="space-y-4 text-xs text-gray-400">
                         
-                        <!-- CIS2 Store -->
+                        <!-- CIS2 Store Mandalay Exact Location -->
                         <div class="space-y-1.5">
                             <p class="font-bold text-emerald-400 text-sm">CIS2 Supermarket (Mandalay)</p>
                             <p class="flex items-start gap-2">
@@ -231,13 +233,13 @@
                             <p class="flex items-center gap-2">
                                 <i class="fa-solid fa-phone text-emerald-500"></i> +95 9 790 970 500
                             </p>
-                            <!-- Google Map Link CIS2 -->
-                            <a href="https://maps.google.com/?q=Mandalay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-semibold hover:bg-emerald-800 hover:text-white transition mt-1">
-                                <i class="fa-solid fa-map-location-dot"></i> View on Google Maps
+                            <!-- Direct Google Maps Exact Location Search -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=CIS2+Supermarket+Mandalay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-semibold hover:bg-emerald-800 hover:text-white transition mt-1">
+                                <i class="fa-solid fa-map-location-dot"></i> View Location on Google Maps
                             </a>
                         </div>
 
-                        <!-- St. Lotus Store -->
+                        <!-- St. Lotus Store Taunggyi Exact Location -->
                         <div class="space-y-1.5 pt-2 border-t border-gray-800">
                             <p class="font-bold text-amber-400 text-sm">St. Lotus Supermarket (Taunggyi)</p>
                             <p class="flex items-start gap-2">
@@ -247,9 +249,9 @@
                             <p class="flex items-center gap-2">
                                 <i class="fa-solid fa-phone text-amber-500"></i> +95 9 651 755 994
                             </p>
-                            <!-- Google Map Link St. Lotus -->
-                            <a href="https://maps.google.com/?q=Taunggyi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] bg-amber-950 text-amber-400 border border-amber-800 px-3 py-1 rounded-full font-semibold hover:bg-amber-800 hover:text-white transition mt-1">
-                                <i class="fa-solid fa-map-location-dot"></i> View on Google Maps
+                            <!-- Direct Google Maps Exact Location Search -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=St.+Lotus+Supermarket+Taunggyi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] bg-amber-950 text-amber-400 border border-amber-800 px-3 py-1 rounded-full font-semibold hover:bg-amber-800 hover:text-white transition mt-1">
+                                <i class="fa-solid fa-map-location-dot"></i> View Location on Google Maps
                             </a>
                         </div>
 
@@ -293,39 +295,57 @@
 
     <!-- Script Logic -->
     <script>
+        // Google Sheet CSV URL (သင့် Google Sheet CSV Link ဖြင့် အစားထိုးပါ)
+        const googleSheetCSVUrl = "YOUR_GOOGLE_SHEET_CSV_URL_HERE";
+
+        // Sub-categories များတွင် image URL များ ထည့်သွင်းထားပါသည်
         const allCategories = [
             { 
                 name: "Grocery", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Grocery.png",
-                subCategories: ["Rice", "Cooking Oils", "Cooking Ingredients", "Kitchen Dry Foods"]
+                image: "https://cdn-icons-png.flaticon.com/512/3081/3081995.png",
+                subCategories: [
+                    { name: "Rice", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Cooking Oils", image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Cooking Ingredients", image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Kitchen Dry Foods", image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=300&q=80" }
+                ]
             },
             { 
                 name: "Nutrition & Confectionery", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Nutrition%20&%20Confectionery.png",
-                subCategories: ["Biscuits", "Chocolates", "Snacks"]
+                image: "https://cdn-icons-png.flaticon.com/512/2553/2553691.png",
+                subCategories: [
+                    { name: "Biscuits", image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Chocolates", image: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Snacks", image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=300&q=80" }
+                ]
             },
             { 
                 name: "Beverage", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Beverage.png", 
-                subCategories: ["Soft Drinks", "Juice", "Tea & Coffee"] 
+                image: "https://cdn-icons-png.flaticon.com/512/2405/2405479.png", 
+                subCategories: [
+                    { name: "Soft Drinks", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Tea & Coffee", image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" }
+                ] 
             },
             { 
                 name: "Chilled Food", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Chilled%20Food.jpg", 
-                subCategories: ["Milk", "Yogurt", "Butter"] 
-            },
-            { 
-                name: "Frozen Food", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Frozen-Food.jpg", 
-                subCategories: ["Meat", "Seafood", "Ice Cream"] 
+                image: "https://cdn-icons-png.flaticon.com/512/2234/2234836.png", 
+                subCategories: [
+                    { name: "Milk", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Yogurt", image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=300&q=80" }
+                ] 
             },
             { 
                 name: "Household Essentials", 
-                image: "https://ik.imagekit.io/stlotus/Category%20Icon/Horeca%20Essentials.png", 
-                subCategories: ["Detergent", "Cleaners", "Tissues"] 
+                image: "https://cdn-icons-png.flaticon.com/512/2553/2553642.png", 
+                subCategories: [
+                    { name: "Detergent", image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=300&q=80" }
+                ] 
             }
         ];
 
+        // Default local products list (Google Sheets မချိတ်ရသေးချိန် သို့မဟုတ် Fetching လုပ်နေစဉ်ပြရန်)
         let products = [
             { id: 1, name: "Paw San Rice 5kg", category: "Grocery", subCategory: "Rice", store: "all", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
             { id: 2, name: "Sunflower Cooking Oil 1L", category: "Grocery", subCategory: "Cooking Oils", store: "all", image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
@@ -337,16 +357,18 @@
         const bannerStoreData = {
             all: [
                 { img: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Fresh Groceries Network", desc: "Top produce available across Mandalay and Taunggyi." },
-                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." },
-                { img: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Quality Guaranteed Products", desc: "Always fresh and certified quality groceries." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
             ],
             cis2: [
-                { img: "https://ik.imagekit.io/stlotus/Banner%20Images/Cis01%20copy.jpg?updatedAt=1787389212184", tag: "CIS2 MANDALAY", title: "CIS2 Supermarket Mandalay", desc: "Located at 35th Street, Mandalay." },
-                { img: "https://ik.imagekit.io/stlotus/Banner%20Images/cis001.jpg?updatedAt=1787645184859", tag: "CIS2 MANDALAY", title: "Famous Noodle Bar Available", desc: "Enjoy custom hot noodle bowls instore." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "CIS2 MANDALAY", title: "CIS2 Supermarket Mandalay", desc: "Located at 35th Street, Mandalay." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
             ],
             stlotus: [
-                { img: "https://ik.imagekit.io/stlotus/Banner%20Images/Lotus06%20copy.jpg?updatedAt=1787389212170", tag: "ST. LOTUS TAUNGGYI", title: "St. Lotus Supermarket Taunggyi", desc: "Located at Yae Htwet Oo Road, Taunggyi." },
-                { img: "https://ik.imagekit.io/stlotus/Banner%20Images/st008.jpg?updatedAt=1787645183558", tag: "ST. LOTUS TAUNGGYI", title: "Fresh Shan State Produce", desc: "Direct from farm to supermarket shelves." }
+                { img: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&w=1200&q=80", tag: "ST. LOTUS TAUNGGYI", title: "St. Lotus Supermarket Taunggyi", desc: "Located at Yae Htwet Oo Road, Taunggyi." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
+                { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80", tag: "ALL STORES", title: "Best Daily Discounts", desc: "Save more on your daily essential shopping." }
             ]
         };
 
@@ -357,10 +379,27 @@
         let slideInterval = null;
 
         window.addEventListener('DOMContentLoaded', () => {
+            fetchProductsFromGoogleSheet();
             renderNavCategories();
             renderCategoryOrProducts();
             initBannerCarousel();
         });
+
+        // Google Sheet CSV ဖတ်ယူမည့် Function
+        function fetchProductsFromGoogleSheet() {
+            if (!googleSheetCSVUrl || googleSheetCSVUrl === "YOUR_GOOGLE_SHEET_CSV_URL_HERE") return;
+
+            Papa.parse(googleSheetCSVUrl, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    if (results.data && results.data.length > 0) {
+                        products = results.data.filter(p => p.name); // Filter empty rows
+                        renderCategoryOrProducts();
+                    }
+                }
+            });
+        }
 
         function setActiveNav(navId, e) {
             if(e) e.stopPropagation();
@@ -404,7 +443,6 @@
             });
         }
 
-        /* Multi-level Navigation Control */
         function selectMainCategory(catName) {
             activeCategory = catName;
             activeSubCategory = 'all';
@@ -422,12 +460,10 @@
 
         function goBackLevel() {
             if (activeSubCategory !== 'all') {
-                // Products level -> Sub-categories level
                 activeSubCategory = 'all';
                 updateTitleAndBackButton();
                 renderCategoryOrProducts();
             } else if (activeCategory !== 'all') {
-                // Sub-categories level -> All Products Level
                 resetCategoryFilter();
             }
         }
@@ -456,6 +492,7 @@
             }
         }
 
+        // Sub-categories များအတွက် Image Card ပြသပေးခြင်း
         function renderCategoryOrProducts() {
             const grid = document.getElementById('productsGrid');
             const selectedCatObj = allCategories.find(c => c.name === activeCategory);
@@ -464,14 +501,16 @@
                 grid.innerHTML = '';
                 selectedCatObj.subCategories.forEach(sub => {
                     const card = document.createElement('div');
-                    card.className = "bg-emerald-50/70 border border-emerald-100 p-6 rounded-2xl text-center cursor-pointer hover:bg-emerald-600 hover:text-white transition group shadow-sm flex flex-col items-center justify-center space-y-2";
-                    card.onclick = () => selectSubCategory(sub);
+                    card.className = "bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer hover:border-emerald-500 hover:shadow-md transition group text-center";
+                    card.onclick = () => selectSubCategory(sub.name);
                     card.innerHTML = `
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition shadow-sm">
-                            <i class="fa-solid fa-layer-group text-lg"></i>
+                        <div class="h-28 bg-gray-100 overflow-hidden relative">
+                            <img src="${sub.image}" alt="${sub.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         </div>
-                        <h4 class="font-bold text-sm leading-tight">${sub}</h4>
-                        <span class="text-[10px] opacity-75">Explore Products <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        <div class="p-3">
+                            <h4 class="font-bold text-gray-800 text-xs leading-tight">${sub.name}</h4>
+                            <span class="text-[10px] text-emerald-600 font-semibold mt-1 inline-block">Explore <i class="fa-solid fa-arrow-right text-[8px]"></i></span>
+                        </div>
                     `;
                     grid.appendChild(card);
                 });
@@ -489,7 +528,7 @@
                 const matchBranch = (activeBranch === 'all') || (p.store === activeBranch) || (p.store === 'all');
                 const matchCategory = (activeCategory === 'all') || (p.category === activeCategory);
                 const matchSubCategory = (activeSubCategory === 'all') || (p.subCategory === activeSubCategory);
-                const matchSearch = p.name.toLowerCase().includes(searchVal);
+                const matchSearch = p.name ? p.name.toLowerCase().includes(searchVal) : false;
                 return matchBranch && matchCategory && matchSubCategory && matchSearch;
             });
 
@@ -503,7 +542,7 @@
                 card.className = "bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group";
                 card.innerHTML = `
                     <div class="h-36 bg-gray-100 overflow-hidden relative">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <img src="${p.image || 'https://via.placeholder.com/150'}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     </div>
                     <div class="p-3">
                         <span class="text-[10px] text-gray-400 font-medium">${p.category} • ${p.subCategory || ''}</span>
@@ -536,7 +575,6 @@
             initBannerCarousel();
         }
 
-        /* Persistent Banner Carousel Logic */
         function initBannerCarousel() {
             if (slideInterval) clearInterval(slideInterval);
             currentSlide = 0;
