@@ -285,20 +285,32 @@
     <!-- Script Logic -->
     <script>
         const allCategories = [
-            { name: "Grocery", image: "https://ik.imagekit.io/stlotus/Grocery/Grocery.png" },
-            { name: "Nutrition & Confectionery", image: "https://ik.imagekit.io/stlotus/Grocery/Nutrition%20&%20Confectionery.png" },
-            { name: "Beverage", image: "https://cdn-icons-png.flaticon.com/512/2405/2405479.png" },
-            { name: "Chilled Food", image: "https://cdn-icons-png.flaticon.com/512/2234/2234836.png" },
-            { name: "Frozen Food", image: "https://cdn-icons-png.flaticon.com/512/938/938090.png" },
-            { name: "Household Essentials", image: "https://cdn-icons-png.flaticon.com/512/2553/2553642.png" }
-        ];
+            { 
+                name: "Grocery", 
+                image: "https://cdn-icons-png.flaticon.com/512/3081/3081995.png",
+                subCategories: ["Rice", "Cooking Oils", "Cooking Ingredients", "Kitchen Dry Foods"]
+            },
+            { 
+                name: "Nutrition & Confectionery", 
+                image: "https://cdn-icons-png.flaticon.com/512/2553/2553691.png",
+                subCategories: ["Biscuits", "Chocolates", "Snacks"]
+            },
+                { name: "Beverage", image: "https://cdn-icons-png.flaticon.com/512/2405/2405479.png", subCategories: ["Soft Drinks", "Juice", "Tea & Coffee"] },
+                { name: "Chilled Food", image: "https://cdn-icons-png.flaticon.com/512/2234/2234836.png", subCategories: ["Milk", "Yogurt", "Butter"] },
+                { name: "Frozen Food", image: "https://cdn-icons-png.flaticon.com/512/938/938090.png", subCategories: ["Meat", "Seafood", "Ice Cream"] },
+                { name: "Household Essentials", image: "https://cdn-icons-png.flaticon.com/512/2553/2553642.png", subCategories: ["Detergent", "Cleaners", "Tissues"] }
+            ];
 
-        let products = [
-            { id: 1, name: "Organic Fresh Apples", category: "Grocery", store: "all", image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=300&q=80" },
-            { id: 2, name: "Spicy Ramen Bowl", category: "Grocery", store: "cis2", image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=300&q=80" },
-            { id: 3, name: "Fresh Cow Milk 1L", category: "Chilled Food", store: "stlotus", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80" },
-            { id: 4, name: "Chocolate Biscuit Box", category: "Nutrition & Confectionery", store: "all", image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=300&q=80" }
-        ];
+            // Product တစ်ခုစီတွင် subCategory ထည့်သွင်းထားပါသည်
+            let products = [
+                { id: 1, name: "Paw San Rice 5kg", category: "Grocery", subCategory: "Rice", store: "all", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
+                { id: 2, name: "Sunflower Cooking Oil 1L", category: "Grocery", subCategory: "Cooking Oils", store: "all", image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
+                { id: 3, name: "Organic Fresh Apples", category: "Grocery", subCategory: "Kitchen Dry Foods", store: "all", image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=300&q=80" },
+                { id: 4, name: "Fresh Cow Milk 1L", category: "Chilled Food", subCategory: "Milk", store: "stlotus", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80" }
+            ];
+
+            let activeCategory = 'all';
+            let activeSubCategory = 'all';
 
         const bannerStoreData = {
             all: [
@@ -365,9 +377,8 @@
             allCategories.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = `w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition ${activeCategory === cat.name ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-emerald-50 hover:text-emerald-700'}`;
-                btn.onclick = () => filterByCategory(cat.name);
+                btn.onclick = () => selectMainCategory(cat.name);
         
-                // <i> tag နေရာတွင် <img> tag ပြောင်းထားပါသည်
                 btn.innerHTML = `
                     <span class="flex items-center gap-2">
                         <img src="${cat.image}" alt="${cat.name}" class="w-4 h-4 object-contain"> 
@@ -378,18 +389,52 @@
             });
         }
 
-        function filterByCategory(catName) {
+        function selectMainCategory(catName) {
             activeCategory = catName;
+            activeSubCategory = 'all';
             document.getElementById('currentCategoryTitle').innerText = catName;
             renderNavCategories();
-            renderProducts();
+            renderCategoryOrProducts();
+        }
+
+        // Sub-Category နှိပ်လိုက်ပါက သက်ဆိုင်ရာ Products Grid ပြပေးမည်
+        function selectSubCategory(subName) {
+            activeSubCategory = subName;
+            document.getElementById('currentCategoryTitle').innerText = `${activeCategory} > ${subName}`;
+            renderProductsOnly();
         }
 
         function resetCategoryFilter() {
             activeCategory = 'all';
+            activeSubCategory = 'all';
             document.getElementById('currentCategoryTitle').innerText = 'All Products';
             renderNavCategories();
-            renderProducts();
+            renderProductsOnly();
+        }
+
+        function renderCategoryOrProducts() {
+            const grid = document.getElementById('productsGrid');
+            const selectedCatObj = allCategories.find(c => c.name === activeCategory);
+
+            // Main Category တစ်ခုကို ရွေးထားပြီး Sub-category မျာ: ရွေးရသေးလျှင် Sub-category Cards Grid ပြပေးမည်
+            if (selectedCatObj && selectedCatObj.subCategories && activeSubCategory === 'all') {
+                grid.innerHTML = '';
+                selectedCatObj.subCategories.forEach(sub => {
+                    const card = document.createElement('div');
+                    card.className = "bg-emerald-50 border border-emerald-100 p-6 rounded-2xl text-center cursor-pointer hover:bg-emerald-600 hover:text-white transition group shadow-sm flex flex-col items-center justify-center space-y-2";
+                    card.onclick = () => selectSubCategory(sub);
+                    card.innerHTML = `
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition shadow-sm">
+                            <i class="fa-solid fa-layer-group text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm leading-tight">${sub}</h4>
+                        <span class="text-[10px] opacity-75">Explore Items <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else {
+                renderProductsOnly();
+            }
         }
 
         function selectStoreBranch(branch) {
@@ -412,7 +457,7 @@
             initBannerCarousel();
         }
 
-        function renderProducts() {
+        function renderProductsOnly() {
             const grid = document.getElementById('productsGrid');
             const searchVal = document.getElementById('searchInput').value.toLowerCase();
             grid.innerHTML = '';
@@ -420,12 +465,13 @@
             const filtered = products.filter(p => {
                 const matchBranch = (activeBranch === 'all') || (p.store === activeBranch) || (p.store === 'all');
                 const matchCategory = (activeCategory === 'all') || (p.category === activeCategory);
+                const matchSubCategory = (activeSubCategory === 'all') || (p.subCategory === activeSubCategory);
                 const matchSearch = p.name.toLowerCase().includes(searchVal);
-                return matchBranch && matchCategory && matchSearch;
+                return matchBranch && matchCategory && matchSubCategory && matchSearch;
             });
 
             if(filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-400 text-sm">No products found.</div>`;
+                grid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-400 text-sm">No products found in this section.</div>`;
                 return;
             }
 
@@ -437,14 +483,13 @@
                         <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     </div>
                     <div class="p-3">
-                        <span class="text-[10px] text-gray-400 font-medium">${p.category}</span>
+                        <span class="text-[10px] text-gray-400 font-medium">${p.category} • ${p.subCategory || ''}</span>
                         <h4 class="font-bold text-gray-800 text-xs mt-0.5 line-clamp-1">${p.name}</h4>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
-
         function searchProducts() { renderProducts(); }
 
         /* Working Auto Banner Carousel Logic */
